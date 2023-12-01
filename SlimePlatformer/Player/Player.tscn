@@ -1,0 +1,126 @@
+[gd_scene load_steps=11 format=3 uid="uid://o44jjrwgqly8"]
+
+[ext_resource type="Script" path="res://Player/Player.gd" id="1_y0tvn"]
+[ext_resource type="Texture2D" uid="uid://qfwa1xaj01pt" path="res://Player/Slime.png" id="2_dmm54"]
+
+[sub_resource type="Animation" id="Animation_xhj4x"]
+resource_name = "Idle"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_87qsk"]
+resource_name = "Jump"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [8, 9, 8]
+}
+
+[sub_resource type="Animation" id="Animation_65pf4"]
+resource_name = "Walk"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_37dv2"]
+_data = {
+"Idle": SubResource("Animation_xhj4x"),
+"Jump": SubResource("Animation_87qsk"),
+"Walk": SubResource("Animation_65pf4")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ray7u"]
+radius = 14.0
+height = 58.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2lrs8"]
+radius = 7.0
+height = 40.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_7kww2"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_7xpoa"]
+font_size = 20
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+script = ExtResource("1_y0tvn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.01852, 1)
+texture = ExtResource("2_dmm54")
+hframes = 4
+vframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_37dv2")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 18)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ray7u")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(9.17939e-07, -3)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2lrs8")
+
+[node name="Camera" type="Camera2D" parent="."]
+scale = Vector2(0.868134, 134.165)
+limit_left = 0
+limit_top = 0
+limit_right = 6015
+limit_bottom = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Lives" type="Label" parent="CanvasLayer"]
+offset_left = 40.0
+offset_top = 23.0
+offset_right = 89.0
+offset_bottom = 54.0
+text = "Lives
+"
+label_settings = SubResource("LabelSettings_7kww2")
+
+[node name="Coins" type="Label" parent="CanvasLayer"]
+offset_left = 39.0
+offset_top = 57.0
+offset_right = 92.0
+offset_bottom = 88.0
+text = "Coins
+"
+label_settings = SubResource("LabelSettings_7xpoa")

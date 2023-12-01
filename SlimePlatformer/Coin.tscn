@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1igb3f8r3xdp"]
+
+[ext_resource type="Script" path="res://Coins.gd" id="1_6an3x"]
+[ext_resource type="Texture2D" uid="uid://dr64f6jrutqst" path="res://Coin.png" id="1_urx2p"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yjvvs"]
+radius = 16.0
+height = 48.0
+
+[sub_resource type="Animation" id="Animation_a70q7"]
+resource_name = "Rotate"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a7376"]
+_data = {
+"Rotate": SubResource("Animation_a70q7")
+}
+
+[node name="Coin" type="Node2D"]
+script = ExtResource("1_6an3x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_urx2p")
+hframes = 2
+vframes = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_yjvvs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_a7376")
+}
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

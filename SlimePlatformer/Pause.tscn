@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8ejw6wh1bdic"]
+
+[ext_resource type="Script" path="res://Pause.gd" id="1_ycr1b"]
+
+[node name="Pause" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ycr1b")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Quit" type="Button" parent="CanvasLayer"]
+offset_left = 313.0
+offset_top = 413.0
+offset_right = 794.0
+offset_bottom = 512.0
+text = "Quit"
+
+[node name="Restart" type="Button" parent="CanvasLayer"]
+offset_left = 309.0
+offset_top = 278.0
+offset_right = 790.0
+offset_bottom = 377.0
+text = "Reset
+"
+
+[node name="Resume" type="Button" parent="CanvasLayer"]
+offset_left = 313.0
+offset_top = 149.0
+offset_right = 786.0
+offset_bottom = 247.0
+text = "Resume"
+
+[connection signal="pressed" from="CanvasLayer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CanvasLayer/Resume" to="." method="_on_resume_pressed"]
